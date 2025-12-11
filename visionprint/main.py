@@ -1,15 +1,4 @@
-class Styles:  
-    RESET     = "\033[0m"
-    BOLD      = "\033[1m"
-    FAINT     = "\033[2m"
-    ITALIC    = "\033[3m"
-    UNDERLINE = "\033[4m"
-    
-class Colors:
-    RED    = "\033[91m"
-    GREEN  = "\033[92m"
-    YELLOW = "\033[93m"
-    BLUE   = "\033[94m" 
+from .ansi import Colors, Styles
 
 def _print(msg: str, color: str="", bold=False, faint=False, italic=False, underline=False):
     style = ""
@@ -20,6 +9,8 @@ def _print(msg: str, color: str="", bold=False, faint=False, italic=False, under
     if underline: style += Styles.UNDERLINE
 
     print(f"{style}{color}{msg}{Styles.RESET}")
+
+# Basic Semantic Logging
 
 def success(msg: str):
     """
@@ -33,11 +24,11 @@ def info(msg: str):
     """
     _print(msg, color=Colors.BLUE, italic=True)
 
-def note(msg: str):
+def dim(msg: str):
     """
-    Faint
+    Grey, faint
     """
-    _print(msg, faint=True)
+    _print(msg, Colors.GREY, faint=True)
 
 def warn(msg: str):
     """
@@ -50,3 +41,29 @@ def error(msg: str):
     Red, underline
     """
     _print(msg, color=Colors.RED, underline=True)
+
+# Higher Level Formatting
+
+def rule(msg: str, color=Colors.WHITE):
+    """
+    Header with a proportional horizontal rule (bold)
+    """
+    rule_length = "-" * (len(msg) // 2)
+    _print(f"{rule_length} {msg} {rule_length}", color=color, bold=True)
+
+def box(msg: str, color=Colors.WHITE, align: str = "center"):
+    """
+    Simple colored box around the message (bold)
+    """
+    lines = msg.split("\n")
+    width = max(len(line) for line in lines)
+    items = "+" + "-" * (width + 2) + "+"
+
+    _print(items, color=color, bold=True)
+    for line in lines:
+        if align == "center":  line = line.center(width)
+        elif align == "left":  line = line.ljust(width)
+        elif align == "right": line = line.rjust(width)
+
+        _print(f"| {line} |", color=color, bold=True)
+    _print(items, color=color, bold=True)
