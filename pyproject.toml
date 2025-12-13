@@ -1,6 +1,6 @@
 [project]
 name = "visionprint"
-version = "0.2.1"
+version = "0.2.4"
 description = "A small Python utility library offering conditional & expressive styles for CLI output."
 authors = [{name = "melih senlen"}]
 readme = "README.md"

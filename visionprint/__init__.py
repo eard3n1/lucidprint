@@ -1,4 +1,4 @@
-from .main import success, info, dim, warn, error, rule, box
+from .main import success, info, dim, warn, error, rule, box, progress
 from .ansi import Colors
 
 black   = Colors.BLACK
@@ -12,6 +12,6 @@ white   = Colors.WHITE
 grey    = Colors.GREY
 
 __all__ = [
-    "success", "info", "dim", "warn", "error", "rule", "box",
-    "black", "red", "green", "yellow", "blue", "magenta", "cyan", "white", "grey"
+    "success", "info", "dim", "warn", "error", "rule", "box", "progress",
+    "black", "red", "green", "yellow", "blue", "magenta", "cyan", "white", "grey",
 ]
